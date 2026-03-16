@@ -69,6 +69,50 @@ B. Mechanismus: Dynamische Gewichtung
 
 ---
 
+## 8. Hardware-Verwaltung & Kernel-Spezifikationen
+
+### A. CPU-Scheduling (Scheduler)
+* **Verfahren:** Priogesteuertes Round-Robin (Priority Round Robin).
+* **Funktionsweise:**
+  * Prozesse werden in Prioritätsklassen unterteilt (z.B. Real-Time für Sensorik/AR, High für LLM-Inferenz, Low für Hintergrund-Indizierung).
+  * Innerhalb jeder Prioritätsstufe erhält jeder Prozess ein festes Zeitquant (Time-Slice).
+  * Höherpriorisierte Prozesse können niederpriorisierte verdrängen (Preemption), um Latenzfreiheit bei AR-Interaktionen zu garantieren.
+
+### B. Ganzheitliche Speicherverwaltung (Memory Management)
+Das System nutzt eine hierarchische Speicherstrategie (Tiered Storage), um Kosten, Geschwindigkeit und Kapazität zu optimieren:
+1. **L1: RAM (Verschlüsselt):** Flüchtiger Arbeitsspeicher für aktive LLM-Inferenz, Sensor-Ringpuffer und unmittelbare Kontextdaten.
+2. **L2: Lokale SSD (NVM-Express):** Permanenter Vektorspeicher, Betriebssystem-Kern und lokale Mediendaten (Snapshots).
+3. **L3: Cloud / NAS (Remote):** Langzeitarchivierung und große Datenmengen. Der Kernel verwaltet die Cloud-Anbindung wie ein transparentes Block-Device oder Dateisystem-Mount (z.B. via FUSE oder direkt integriertem Netzwerk-Treiber).
+
+### C. Peripherie & Treiber-Modell
+* **Unified Driver Interface:** Ein abstraktes Treibermodell, das Hardware-Ressourcen dem LLM-Kernel als "Capabilities" zur Verfügung stellt.
+* **Konnektivität:**
+  * **Bluetooth:** Low-Latency-Profile für Eingabegeräte (Smartring, Keyboards).
+  * **WiFi / 5G:** Dynamische Umschaltung je nach Verfügbarkeit und Bandbreitenbedarf (Cloud-Offloading vs. Local-Only).
+* **Hardware-Abstraktion:** Der Kernel verwaltet den Zugriff auf spezialisierte Chips (NPU, ISP für Kamera, Audio-DSP) und stellt sicher, dass Treiber im isolierten Userspace laufen (Microkernel-Ansatz zur Erhöhung der Systemsicherheit).
+
+---
+
+## 9. Architektur- & Sprachdesign
+
+### A. Hardware-Portabilität (Multi-Architektur-Support)
+Um sowohl x86 (Desktop/Server) als auch ARM/ARM64 (Mobile/Puck/Apple Silicon) zu unterstützen, wird ein zweistufiger Ansatz verfolgt:
+1.  **Minimaler Assembler-Layer (HAL):** Ein winziger, architekturspezifischer Kern (ca. 1-2 % des Codes) wird in nativem Assembler geschrieben. Dieser regelt:
+    *   Bootvorgang und CPU-Initialisierung.
+    *   Interrupt-Handling und Exception-Vektoren.
+    *   Context-Switching (Register-Sicherung/Wiederherstellung für den Scheduler).
+2.  **Architekturunabhängiger Kernel:** Der restliche Kernel (98 %+) wird in einer portablen Hochsprache verfasst. Dies ermöglicht es, das gesamte Systemlogik-Design (LLM-Integration, Scheduler-Algorithmen) nur einmal zu entwickeln und für die jeweilige Ziel-CPU zu kompilieren.
+
+### B. Programmiersprache & "Semantic Safety"
+Da das OS radikal neue Konzepte einführt, wird eine hybride Sprachstrategie gewählt:
+*   **Basis-Sprache (System-Ebene):** Einsatz einer modernen, speichersicheren Systemsprache (z. B. **Rust** oder **Zig**). Diese bietet bereits Schutz vor klassischen Speicherfehlern (Buffer Overflows) und ermöglicht eine performante Hardware-Anbindung.
+*   **LLM-Native Extensions (DSL):** Entwicklung einer "Domain Specific Language" (DSL) oder eines Makro-Systems innerhalb der Basis-Sprache, um semantische Konzepte direkt im Code zu verankern:
+    *   `local_only`: Ein Datentyp-Präfix, das vom Compiler verhindert, dass diese Daten jemals in Netzwerk-Buffer kopiert werden.
+    *   `semantic_vector`: Ein nativer Typ für Embeddings, der direkt auf NPU-Befehle (Neural Processing Unit) abgebildet wird.
+*   **Evolutionärer Pfad:** Langfristiges Ziel ist eine eigene Sprache ("NeuroScript" / "Semantic-C"), die speziell für die Interaktion zwischen LLM-Kernel und Hardware optimiert ist (z. B. JIT-Kompilierung von LLM-generiertem Code in sicherem Sandboxed-Maschinencode).
+
+---
+
 ## 7. Offene Fragen / Nächste Schritte
 • Entwicklung eines Microkernels (z. B. auf seL4-Basis), der direkt mit der NPU kommuniziert.
 
