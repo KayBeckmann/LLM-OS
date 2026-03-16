@@ -113,6 +113,38 @@ Da das OS radikal neue Konzepte einführt, wird eine hybride Sprachstrategie gew
 
 ---
 
+## 10. Ökosystem & Skill-Hub (Programm-Austausch)
+
+### A. "The Hub" – Zentraler Austausch (Registry)
+Ähnlich wie Docker Hub oder GitHub bietet das OS eine integrierte Plattform zum Teilen und Entdecken von Erweiterungen:
+*   **Skills & Apps:** Entwickler können "Skills" (LLM-Anweisungen/Prompts + Tools) oder binäre "Apps" hochladen.
+*   **Versionierung & Rollout:** Schnelle, automatisierte Updates über den Kernel-eigenen Paketmanager.
+*   **Open Source First:** Das gesamte System und die Basis-Skills stehen unter der **MIT-Lizenz**, um eine maximale Verbreitung und Community-Beteiligung zu fördern.
+
+### B. Trennung von System & Personalisierung (Weights-Isolation)
+Ein entscheidendes Architekturmerkmal ist die strikte Trennung zwischen dem ausführbaren Code (System/Skills) und der individuellen Nutzer-Intelligenz:
+1.  **Statische System-Ebene:** Updates für das OS, Treiber oder neue Skills verändern ausschließlich die Programmlogik oder die Basis-Fähigkeiten.
+2.  **Dynamische Nutzer-Ebene (LoRA-Layer):** Die durch Interaktion gelernten Gewichtungen (LoRAs/Embeddings) werden in einem isolierten Bereich gespeichert.
+    *   **Keine Beeinflussung:** Ein Tool-Update oder eine neue App kann die persönlichen Gewichtungen des Nutzers nicht überschreiben oder korrumpieren.
+    *   **Portabilität:** Der Nutzer kann seine "Persönlichkeits-Gewichte" (die LoRA-Schicht) theoretisch auf ein neues Gerät mitnehmen, während das System-Image dort unabhängig aktualisiert wird.
+
+---
+
+## 11. Hardware-Migration & Modell-Upgrade
+
+### A. Nahtloser Export/Import (Portabilität)
+Um den Wechsel auf neue Hardware (z. B. ein neuerer "Puck") ohne Reibungsverluste zu ermöglichen, bietet der Kernel eine native Migrationsfunktion:
+*   **Semantic Profile Export:** Alle individuellen Gewichtungen (LoRAs), der Vektor-Index (Erinnerungen) und die Interaktionshistorie werden in einem verschlüsselten Container exportiert.
+*   **Hardware-Abstraktion:** Die exportierten Daten sind so strukturiert, dass sie unabhängig von der spezifischen CPU/NPU-Architektur des neuen Geräts importiert werden können.
+
+### B. Inter-Model Knowledge Transfer (Upgrade-Training)
+Wenn die neue Hardware leistungsfähiger ist und ein größeres Basis-Modell nutzt (z. B. Wechsel von einem 8B auf ein 70B Parameter Modell):
+*   **Automatisches Re-Alignment:** Die "alte" Hardware (oder deren Backup) fungiert als Lehrer für die neue Hardware. 
+*   **Knowledge Distillation / Transfer Learning:** Die persönlichen Präferenzen und das Wissen aus den kleinen LoRA-Layern werden auf die Architektur des größeren Modells übertragen.
+*   **Bootstrap-Phase:** Das neue System durchläuft eine kurze, automatisierte Trainingsphase im Hintergrund, um die semantische Kontinuität sicherzustellen, ohne dass der Nutzer das System neu anlernen muss.
+
+---
+
 ## 7. Offene Fragen / Nächste Schritte
 • Entwicklung eines Microkernels (z. B. auf seL4-Basis), der direkt mit der NPU kommuniziert.
 
