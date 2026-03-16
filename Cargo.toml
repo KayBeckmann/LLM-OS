@@ -1,0 +1,19 @@
+[package]
+name = "llm-os"
+version = "0.1.0"
+edition = "2021"
+authors = ["Kay Beckmann"]
+license = "MIT"
+
+[dependencies]
+volatile = "0.4"
+spin = "0.9"
+bitflags = "2.4"
+cortex-a = "8.1"
+
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+panic = "abort"
+lto = true
