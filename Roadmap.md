@@ -67,3 +67,14 @@ Fokus: Datensicherheit und Transfer.
 13. **Cloud/NAS Bridge:**
     *   [ ] 13.1 Implementierung verschlüsselter Netzwerk-Backups.
     *   [ ] 13.2 Transparentes File-Mapping für NAS-Daten.
+
+## Phase 7: Self-Hosting & Native Tooling
+Fokus: Entwicklung von Software auf dem Gerät selbst.
+
+14. **Native Compiler-Toolchain:**
+    *   [ ] 14.1 Portierung eines Backends (z. B. LLVM oder Zig) auf den LLM-Kernel.
+    *   [ ] 14.2 Implementierung eines minimalen "On-Device" Linkers.
+15. **LUI-IDE (Semantic Dev-Loop):**
+    *   [ ] 15.1 Integration von Real-Time Code-Generierung im Kernel.
+    *   [ ] 15.2 Implementierung von "Hot-Module-Reloading" für Kernel-Dienste.
+    *   [ ] 15.3 Semantische Debugging-Schnittstelle (Sprach-Feedback bei Fehlern).

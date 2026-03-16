@@ -145,6 +145,20 @@ Wenn die neue Hardware leistungsfähiger ist und ein größeres Basis-Modell nut
 
 ---
 
+## 12. Native Development & Self-Hosting
+
+### A. On-Device Compiler-Chain
+Um die Entwicklung direkt auf dem Zielgerät (Orange Pi) zu ermöglichen:
+*   **Self-Hosted Toolchain:** Integration eines minimalen Compilers (z. B. auf LLVM- oder Zig-Basis), der nativ auf dem LLM-Kernel läuft.
+*   **Live-Kernel-Patching:** Unterstützung für Hot-Reloading von Modulen, damit Entwickler Änderungen testen können, ohne das gesamte System neu zu starten.
+
+### B. LUI-Assisted Coding (Semantic IDE)
+Die Entwicklung erfolgt primär über das LUI:
+*   **Natural Language to Code:** Der Nutzer beschreibt eine neue Funktion oder einen Bugfix sprachlich. Das interne LLM generiert den Code, validiert ihn gegen die System-Capabilities und schlägt die Kompilierung vor.
+*   **Interaktives Debugging:** Das OS kann Fehler im laufenden Betrieb semantisch analysieren und dem Entwickler per Sprache erklären ("Der NVMe-Treiber meldet einen Timeout in Zeile 45...").
+
+---
+
 ## 7. Offene Fragen / Nächste Schritte
 • Entwicklung eines Microkernels (z. B. auf seL4-Basis), der direkt mit der NPU kommuniziert.
 
