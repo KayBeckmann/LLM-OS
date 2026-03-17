@@ -34,9 +34,10 @@ Fokus: Zugriff auf die Peripherie des Orange Pi 5 Plus.
 6.  **I/O & Speicher:**
     *   [ ] 6.1 NVMe-Treiber (PCIe Gen3) für schnellen SSD-Zugriff.
     *   [ ] 6.2 USB-Treiber (Basis) für Kamera-Input (Snapshots).
-7.  **Konnektivität:**
+7. **Konnektivität:**
     *   [ ] 7.1 WiFi/Ethernet-Treiber (RK3588-spezifisch).
     *   [ ] 7.2 Bluetooth-Stack für Peripherie-Koppelung (Smartring).
+    *   [ ] 7.3 **NeuroLink-Protokoll (Basis):** Implementierung der P2P-ID-Verwaltung und verschlüsselter Paketaustausch.
 
 ## Phase 4: NPU-Integration (Das "Herz" des OS)
 Fokus: Nutzung der Rockchip NPU für lokale Inferenz.
@@ -54,9 +55,11 @@ Fokus: Die Interaktionsschicht.
 10. **Inferenz-Engine (Local-First):**
     *   [ ] 10.1 Laden eines quantisierten Modells (z.B. Llama-3-8B-RKNN).
     *   [ ] 10.2 Implementierung des "Semantic-Loop" (Input -> NPU -> OS-Action).
-11. **Skill-System (The Hub):**
+11. **Skill-System & Kommunikation:**
     *   [ ] 11.1 Definition der Skill-Manifest-Struktur.
     *   [ ] 11.2 Implementierung des Skill-Laders (Sandboxed Execution).
+    *   [ ] 11.3 **Semantischer Messenger:** LUI-Anbindung für Nachrichtenversand und Zusammenfassungen.
+
 
 ## Phase 6: Migration & Personalisierung
 Fokus: Datensicherheit und Transfer.

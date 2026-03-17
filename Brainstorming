@@ -159,6 +159,21 @@ Die Entwicklung erfolgt primär über das LUI:
 
 ---
 
+## 13. Semantische Kommunikation & Messenger-Protokoll
+
+### A. Das Protokoll ("NeuroLink")
+Ein dezentrales, verschlüsseltes Peer-to-Peer-Protokoll für den Austausch zwischen LLM-OS-Instanzen:
+*   **Identität:** Jeder Teilnehmer erhält eine eindeutige, kryptografische ID (DID - Decentralized Identifier), die unabhängig von zentralen Servern funktioniert.
+*   **Multimodaler Transfer:** Nativer Support für Sprache (Echtzeit-Audio), Text, Dateien und komplexe Projekt-Snapshots.
+*   **Skill-Sharing:** Nutzer können "Skills" oder "Prompts" direkt über den Messenger an andere Pucks senden, die dort sofort (nach Bestätigung) einsatzbereit sind.
+
+### B. LLM-gestützte Kommunikation
+Das lokale LLM fungiert als intelligenter Filter und Vermittler:
+*   **Semantic Summaries:** Lange Nachrichten oder Projekt-Updates werden vom lokalen LLM zusammengefasst, bevor der Nutzer sie "liest" oder "hört".
+*   **Autonome Projekt-Integration:** Empfangene Projekte oder Code-Files werden vom LLM vorab analysiert, auf Sicherheit geprüft und direkt in den lokalen Vektorspeicher einsortiert.
+
+---
+
 ## 7. Offene Fragen / Nächste Schritte
 • Entwicklung eines Microkernels (z. B. auf seL4-Basis), der direkt mit der NPU kommuniziert.
 
